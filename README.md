@@ -1,4 +1,4 @@
-# Hasan's YouTube to MP3/4 Downloader
+# YouTube to MP3/4 Downloader
 
 **Hasan's YouTube to MP3/4 Downloader** is a React-based web application that allows users to extract video information and download YouTube videos in various formats (MP3/MP4). The app fetches video data and download links from the YouTube API using Axios and displays video details like title, views, likes, and download options.
 
