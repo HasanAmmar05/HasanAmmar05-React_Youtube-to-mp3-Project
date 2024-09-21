@@ -43,7 +43,7 @@ function YouTubeDownloader() {
       url: 'https://youtube-video-information1.p.rapidapi.com/api/youtube',
       params: { video_id: videoId },
       headers: {
-        'x-rapidapi-key': '0a3e4b2b08msh2d2f05071f1b448p1b9b5djsn9b06c5e07881',
+        'x-rapidapi-key': '',
         'x-rapidapi-host': 'youtube-video-information1.p.rapidapi.com'
       }
     };
@@ -76,7 +76,7 @@ function YouTubeDownloader() {
       url: 'https://ytstream-download-youtube-videos.p.rapidapi.com/dl',
       params: { id: videoId },
       headers: {
-        'x-rapidapi-key': '0a3e4b2b08msh2d2f05071f1b448p1b9b5djsn9b06c5e07881',
+        'x-rapidapi-key': '',
         'x-rapidapi-host': 'ytstream-download-youtube-videos.p.rapidapi.com'
       }
     };
