@@ -1,70 +1,58 @@
-# Getting Started with Create React App
+# Hasan's YouTube to MP3/4 Downloader
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Hasan's YouTube to MP3/4 Downloader** is a React-based web application that allows users to extract video information and download YouTube videos in various formats (MP3/MP4). The app fetches video data and download links from the YouTube API using Axios and displays video details like title, views, likes, and download options.
 
-## Available Scripts
+## Features
+- **YouTube URL Validation**: The app validates if a URL is a valid YouTube video link.
+- **Video Information Fetching**: Fetches and displays video title, views, likes, publish date, and duration.
+- **Download Links**: Provides downloadable links for both video (highest quality) and audio.
+- **Loading States**: Displays appropriate loading messages when fetching data or processing downloads.
+- **Error Handling**: Shows user-friendly error messages if something goes wrong (e.g., invalid URL or failed API request).
 
-In the project directory, you can run:
+## Website Link : 
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Tech Stack
+- **Frontend**: React (functional components, hooks)
+- **Styling**: Tailwind CSS for a modern and responsive design
+- **API Integration**: Axios for making HTTP requests to the YouTube API (via RapidAPI)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## How It Works
+1. Enter a valid YouTube URL in the input field.
+2. Click on the **Get Info** button to fetch video details.
+3. Click on the **Download** button to fetch download links for the highest quality video and audio formats.
+4. Click the provided links to download the video or audio directly.
 
-### `npm test`
+## Setup Instructions
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **Clone the repository:**
+    ```bash
+    git clone https://github.com/HasanAmmar05/youtube-downloader.git
+    cd youtube-downloader
+    ```
 
-### `npm run build`
+2. **Install dependencies:**
+    ```bash
+    npm install
+    ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. **Run the app:**
+    ```bash
+    npm start
+    ```
+    The app will be available at [http://localhost:3000](http://localhost:3000).
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. **Update API Keys**: Replace the `x-rapidapi-key` in the `handleGetInfo` and `handleDownload` functions with your own RapidAPI key.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## API Usage
 
-### `npm run eject`
+This app uses two endpoints from the YouTube API via RapidAPI:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. **YouTube Video Info**: Retrieves video information based on the video ID.
+    - **URL**: `https://youtube-video-information1.p.rapidapi.com/api/youtube`
+    - **Method**: GET
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. **YouTube Download Links**: Fetches download links for the specified video.
+    - **URL**: `https://ytstream-download-youtube-videos.p.rapidapi.com/dl`
+    - **Method**: GET
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
