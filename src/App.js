@@ -1,50 +1,46 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-function App() {
+function YouTubeDownloader() {
   const [url, setUrl] = useState('');
-  const [title, setTitle] = useState('');
-  const [mp3Url, setMp3Url] = useState('');
+  const [downloadLinks, setDownloadLinks] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const getTitle = async () => {
-    setLoading(true);
-    try {
-      const options = {
-        method: 'GET',
-        url: 'https://youtube-to-mp315.p.rapidapi.com/title',
-        params: { url },
-        headers: {
-          'x-rapidapi-key': '8a861615ffmsh66b922b5d300103p18a62ajsn09144303544c',
-          'x-rapidapi-host': 'youtube-to-mp315.p.rapidapi.com',
-        },
-      };
-      const response = await axios.request(options);
-      setTitle(response.data.title);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
+  const extractVideoId = (url) => {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : null;
   };
 
-  const downloadMp3 = async () => {
+  const handleDownload = async () => {
     setLoading(true);
+    setError('');
+    setDownloadLinks(null);
+
+    const videoId = extractVideoId(url);
+    if (!videoId) {
+      setError('Invalid YouTube URL. Please enter a valid URL.');
+      setLoading(false);
+      return;
+    }
+
+    const options = {
+      method: 'GET',
+      url: 'https://ytstream-download-youtube-videos.p.rapidapi.com/dl',
+      params: { id: videoId },
+      headers: {
+        'x-rapidapi-key': '0a3e4b2b08msh2d2f05071f1b448p1b9b5djsn9b06c5e07881',
+        'x-rapidapi-host': 'ytstream-download-youtube-videos.p.rapidapi.com'
+      }
+    };
+
     try {
-      const options = {
-        method: 'POST',
-        url: 'https://youtube-to-mp315.p.rapidapi.com/download',
-        params: { url, format: 'mp3' },
-        headers: {
-          'x-rapidapi-key': '8a861615ffmsh66b922b5d300103p18a62ajsn09144303544c',
-          'x-rapidapi-host': 'youtube-to-mp315.p.rapidapi.com',
-          'Content-Type': 'application/json',
-        },
-      };
       const response = await axios.request(options);
-      setMp3Url(response.data.downloadUrl);
+      setDownloadLinks(response.data);
     } catch (error) {
       console.error(error);
+      setError('An error occurred while fetching download links. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -52,7 +48,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center p-4">
-      <h1 className="text-3xl font-bold mb-4">YouTube to MP3 Converter</h1>
+      <h1 className="text-3xl font-bold mb-4">YouTube Video Downloader</h1>
       <input
         type="text"
         className="p-2 border border-gray-300 rounded w-full max-w-md mb-4"
@@ -61,31 +57,34 @@ function App() {
         onChange={(e) => setUrl(e.target.value)}
       />
       <button
-        onClick={getTitle}
+        onClick={handleDownload}
         className="px-4 py-2 bg-blue-500 text-white rounded mb-2"
+        disabled={loading || !url}
       >
-        Get Video Title
+        {loading ? 'Loading...' : 'Get Download Links'}
       </button>
-      {loading && <p>Loading...</p>}
-      {title && <p className="text-xl mb-4">Title: {title}</p>}
-      <button
-        onClick={downloadMp3}
-        className="px-4 py-2 bg-green-500 text-white rounded"
-      >
-        Convert to MP3
-      </button>
-      {mp3Url && (
-        <a
-          href={mp3Url}
-          target="_blank"
-          rel="noreferrer"
-          className="mt-4 text-blue-500"
-        >
-          Download MP3
-        </a>
+      {error && <p className="text-red-500 mt-4">{error}</p>}
+      {downloadLinks && (
+        <div className="mt-4 w-full max-w-md">
+          <h2 className="text-xl font-semibold mb-2">Download Links:</h2>
+          <ul className="list-disc pl-5">
+            {downloadLinks.formats.map((format, index) => (
+              <li key={index} className="mb-2">
+                <a 
+                  href={format.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-blue-600 hover:underline"
+                >
+                  {format.qualityLabel || 'Audio'} - {format.mimeType.split(';')[0]}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
     </div>
   );
 }
 
-export default App;
+export default YouTubeDownloader;
