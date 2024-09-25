@@ -110,7 +110,7 @@ function YouTubeDownloader() {
       <header className="w-full max-w-4xl flex justify-between items-center mb-8">
         <div className="flex items-center space-x-3 text-white">
           <Logo />
-          <h1 className="text-3xl font-bold ">YT Downloader</h1>
+          <h1 className="text-5xl font-bold ">YT Downloader</h1>
         </div>
         <a
           href="https://github.com/HasanAmmar05"
